@@ -76,6 +76,9 @@ ADD --chown=root:root include/index.php /var/www/site/index.php
 # add entry point script
 ADD --chown=root:root include/start.sh /start.sh
 
+# make entry point script executable
+RUN chmod +x /start.sh
+
 # set working dir
 WORKDIR /var/www/site/
 
