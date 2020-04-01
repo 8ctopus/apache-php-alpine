@@ -1,6 +1,6 @@
 ## project description
 
-A docker super light web server with Apache and php on top of Alpine Linux for development purposes
+A super light docker web server with Apache and php on top of Alpine Linux for development purposes
 
 - apache 2.4.41
 - php 7.3.16 with xdebug
