@@ -36,6 +36,8 @@ then
         ln -s /docker/etc/php7 /etc/php7
     else
         echo "Expose /etc/php7/ to host - config exists on host"
+        rm -rf /etc/php7/
+        ln -s /docker/etc/php7 /etc/php7
     fi
 
     echo "Expose /etc/php7/ to host - OK"
