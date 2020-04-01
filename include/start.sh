@@ -43,6 +43,12 @@ then
     echo "Expose /etc/php7/ to host - OK"
 fi
 
+# create xdebug log file
+touch /var/log/apache2/xdebug.log
+
+# allow xdebug to write to it
+chmod 666 /var/log/apache2/xdebug.log
+
 echo "-----------------------------------------------"
 
 # start apache2
