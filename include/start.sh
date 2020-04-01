@@ -18,6 +18,8 @@ then
         ln -s /docker/etc/apache2 /etc/apache2
     else
         echo "Expose /etc/apache2/ to host - config exists on host"
+        rm -rf /etc/apache2/
+        ln -s /docker/etc/apache2 /etc/apache2
     fi
 
     echo "Expose /etc/apache2/ to host - OK"
