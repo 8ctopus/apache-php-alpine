@@ -6,11 +6,8 @@ EXPOSE 443/tcp
 
 # install console tools
 RUN apk add \
-    curl \
     inotify-tools \
-    nano \
-    tar \
-    unzip
+    nano
 
 # install and configure zsh
 RUN apk add \
