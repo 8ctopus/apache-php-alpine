@@ -43,6 +43,14 @@ then
     echo "Expose /etc/php7/ to host - OK"
 fi
 
+if [ ! -e /etc/ssl/apache2/localhost.pem ];
+then
+    echo "Generate self-signed SSL certificate for domain localhost..."
+
+    # generate self-signed SSL certificate
+    openssl req -new -x509 -key /etc/ssl/apache2/server.key -out /etc/ssl/apache2/localhost.pem -days 3650 -subj /CN=localhost
+fi
+
 # create xdebug log file
 touch /var/log/apache2/xdebug.log
 

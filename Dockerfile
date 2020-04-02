@@ -77,6 +77,9 @@ RUN sed -i 's|ServerName www.example.com:443|ServerName localhost:443|g' /etc/ap
 # change SSL server root dir
 RUN sed -i 's|DocumentRoot "/var/www/localhost/htdocs"|DocumentRoot "/var/www/site"|g' /etc/apache2/conf.d/ssl.conf
 
+# change SSL certificate
+RUN sed -i 's|SSLCertificateFile /etc/ssl/apache2/server.pem|SSLCertificateFile /etc/ssl/apache2/localhost.pem|g' /etc/apache2/conf.d/ssl.conf
+
 # change SSL log files location
 RUN sed -i 's|ErrorLog logs/ssl_error.log|ErrorLog /var/log/apache2/ssl_error.log|g' /etc/apache2/conf.d/ssl.conf
 RUN sed -i 's|TransferLog logs/ssl_access.log|TransferLog /var/log/apache2/ssl_access.log|g' /etc/apache2/conf.d/ssl.conf
