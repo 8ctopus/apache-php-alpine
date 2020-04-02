@@ -6,6 +6,7 @@ services:
     container_name: dev-web
     ports:
       - 8000:80
+      - 8001:443
     volumes:
       # development directory
       - ./dev/:/var/www/site/

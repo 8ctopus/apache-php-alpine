@@ -51,12 +51,13 @@ RUN apk add \
 
 # install apache
 RUN apk add \
-    apache2
+    apache2 \
+    apache2-ssl
 
 # change server name
 RUN sed -i 's|#ServerName www.example.com:80|ServerName localhost:80|g' /etc/apache2/httpd.conf
 
-# change website default dir
+# change website root dir
 RUN sed -i 's|/var/www/localhost/htdocs|/var/www/site/|g' /etc/apache2/httpd.conf
 
 # enable mod rewrite
@@ -69,6 +70,16 @@ RUN sed -i 's|    AllowOverride None|    AllowOverride All|g' /etc/apache2/httpd
 RUN mkdir -p /var/log/apache2
 RUN sed -i 's| logs/error.log| /var/log/apache2/error.log|g' /etc/apache2/httpd.conf
 RUN sed -i 's| logs/access.log| /var/log/apache2/access.log|g' /etc/apache2/httpd.conf
+
+# change SSL server name
+RUN sed -i 's|ServerName www.example.com:443|ServerName localhost:443|g' /etc/apache2/conf.d/ssl.conf
+
+# change SSL server root dir
+RUN sed -i 's|DocumentRoot "/var/www/localhost/htdocs"|DocumentRoot "/var/www/site"|g' /etc/apache2/conf.d/ssl.conf
+
+# change SSL log files location
+RUN sed -i 's|ErrorLog logs/ssl_error.log|ErrorLog /var/log/apache2/ssl_error.log|g' /etc/apache2/conf.d/ssl.conf
+RUN sed -i 's|TransferLog logs/ssl_access.log|TransferLog /var/log/apache2/ssl_access.log|g' /etc/apache2/conf.d/ssl.conf
 
 # add test page
 ADD --chown=root:root include/index.php /var/www/site/index.php
