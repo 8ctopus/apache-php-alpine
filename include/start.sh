@@ -3,6 +3,12 @@
 echo ""
 echo "Start container web server..."
 
+# set domain variable if not set
+if [ $DOMAIN = "" ];
+then
+    $DOMAIN = "localhost"
+fi
+
 # check if we should expose apache2 to host
 if [ -d /docker/etc/ ];
 then
@@ -24,6 +30,24 @@ then
 
     echo "Expose apache2 to host - OK"
 
+    if [ ! -e /etc/ssl/apache2/$DOMAIN.pem ];
+    then
+        echo "Generate self-signed SSL certificate for $DOMAIN..."
+
+        # generate self-signed SSL certificate
+        openssl req -new -x509 -key /etc/ssl/apache2/server.key -out /etc/ssl/apache2/$DOMAIN.pem -days 3650 -subj /CN=$DOMAIN
+
+        # use SSL certificate
+        sed -i "s|SSLCertificateFile .*|SSLCertificateFile /etc/ssl/apache2/$DOMAIN.pem|g" /etc/apache2/conf.d/ssl.conf
+
+        echo "Generate self-signed SSL certificate for $DOMAIN - OK"
+    fi
+
+    echo "Edit apache2 config for domain..."
+    sed -i "s|#ServerName .*:80|ServerName $DOMAIN:80|g" /etc/apache2/httpd.conf
+    sed -i "s|ServerName .*:443|ServerName $DOMAIN:443|g" /etc/apache2/conf.d/ssl.conf
+    echo "Edit apache2 config for domain - OK"
+
     echo "Expose php7 to host..."
     sleep 3
 
@@ -41,14 +65,6 @@ then
     fi
 
     echo "Expose php7 to host - OK"
-fi
-
-if [ ! -e /etc/ssl/apache2/localhost.pem ];
-then
-    echo "Generate self-signed SSL certificate for domain localhost..."
-
-    # generate self-signed SSL certificate
-    openssl req -new -x509 -key /etc/ssl/apache2/server.key -out /etc/ssl/apache2/localhost.pem -days 3650 -subj /CN=localhost
 fi
 
 # create xdebug log file

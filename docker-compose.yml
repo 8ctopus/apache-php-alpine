@@ -7,6 +7,8 @@ services:
     ports:
       - 8000:80
       - 8001:443
+    environment:
+      - DOMAIN=localhost
     volumes:
       # development directory
       - ./dev/:/var/www/site/

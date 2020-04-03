@@ -51,9 +51,6 @@ RUN apk add \
     apache2 \
     apache2-ssl
 
-# change server name
-RUN sed -i 's|#ServerName www.example.com:80|ServerName localhost:80|g' /etc/apache2/httpd.conf
-
 # change website root dir
 RUN sed -i 's|/var/www/localhost/htdocs|/var/www/site/public|g' /etc/apache2/httpd.conf
 
@@ -68,14 +65,8 @@ RUN mkdir -p /var/log/apache2
 RUN sed -i 's| logs/error.log| /var/log/apache2/error.log|g' /etc/apache2/httpd.conf
 RUN sed -i 's| logs/access.log| /var/log/apache2/access.log|g' /etc/apache2/httpd.conf
 
-# change SSL server name
-RUN sed -i 's|ServerName www.example.com:443|ServerName localhost:443|g' /etc/apache2/conf.d/ssl.conf
-
 # change SSL server root dir
 RUN sed -i 's|DocumentRoot "/var/www/localhost/htdocs"|DocumentRoot "/var/www/site/public"|g' /etc/apache2/conf.d/ssl.conf
-
-# change SSL certificate
-RUN sed -i 's|SSLCertificateFile /etc/ssl/apache2/server.pem|SSLCertificateFile /etc/ssl/apache2/localhost.pem|g' /etc/apache2/conf.d/ssl.conf
 
 # change SSL log files location
 RUN sed -i 's|ErrorLog logs/ssl_error.log|ErrorLog /var/log/apache2/ssl_error.log|g' /etc/apache2/conf.d/ssl.conf
