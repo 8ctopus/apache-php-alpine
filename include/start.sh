@@ -3,44 +3,44 @@
 echo ""
 echo "Start container web server..."
 
-# check if we should expose /etc/apache2/ to host
+# check if we should expose apache2 to host
 if [ -d /docker/etc/ ];
 then
-    echo "Expose /etc/apache2/ to host..."
+    echo "Expose apache2 to host..."
     sleep 3
 
     # check if directory empty
     if [ -z "$(ls -A /docker/etc/apache2)" ];
     then
-        echo "Expose /etc/apache2/ to host - copy files..."
+        echo "Expose apache2 - copy files..."
         cp -r /etc/apache2/ /docker/etc/
         rm -rf /etc/apache2/
         ln -s /docker/etc/apache2 /etc/apache2
     else
-        echo "Expose /etc/apache2/ to host - config exists on host"
+        echo "Expose apache2 to host - config exists on host"
         rm -rf /etc/apache2/
         ln -s /docker/etc/apache2 /etc/apache2
     fi
 
-    echo "Expose /etc/apache2/ to host - OK"
+    echo "Expose apache2 to host - OK"
 
-    echo "Expose /etc/php7/ to host..."
+    echo "Expose php7 to host..."
     sleep 3
 
     # check if directory empty
     if [ -z "$(ls -A /docker/etc/php7)" ];
     then
-        echo "Expose /etc/php7/ to host - copy files..."
+        echo "Expose php7 to host - copy files..."
         cp -r /etc/php7/ /docker/etc/
         rm -rf /etc/php7/
         ln -s /docker/etc/php7 /etc/php7
     else
-        echo "Expose /etc/php7/ to host - config exists on host"
+        echo "Expose php7 to host - config exists on host"
         rm -rf /etc/php7/
         ln -s /docker/etc/php7 /etc/php7
     fi
 
-    echo "Expose /etc/php7/ to host - OK"
+    echo "Expose php7 to host - OK"
 fi
 
 if [ ! -e /etc/ssl/apache2/localhost.pem ];
