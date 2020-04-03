@@ -19,7 +19,7 @@ then
     sleep 3
 
     # check if directory empty
-    if [ -z "$(ls -A /docker/etc/apache2)" ];
+    if [ -z "$(ls -A /docker/etc/apache2 2> /dev/null)" ];
     then
         echo "Expose apache2 - copy files..."
         cp -r /etc/apache2/ /docker/etc/
@@ -63,7 +63,7 @@ then
     sleep 3
 
     # check if directory empty
-    if [ -z "$(ls -A /docker/etc/php7)" ];
+    if [ -z "$(ls -A /docker/etc/php7 2> /dev/null)" ];
     then
         echo "Expose php7 to host - copy files..."
         cp -r /etc/php7/ /docker/etc/
