@@ -9,6 +9,9 @@ then
     $DOMAIN = "localhost"
 fi
 
+echo "domain: $DOMAIN"
+echo "document root: $DOCUMENT_ROOT"
+
 # check if we should expose apache2 to host
 if [ -d /docker/etc/ ];
 then
@@ -43,10 +46,18 @@ then
         echo "Generate self-signed SSL certificate for $DOMAIN - OK"
     fi
 
-    echo "Edit apache2 config for domain..."
+    echo "Configure apache2 for domain..."
+
+    # set document root dir
+    sed -i "s|/var/www/localhost/htdocs|/var/www/site$DOCUMENT_ROOT|g" /etc/apache2/httpd.conf
+
+    # set SSL document root dir
+    sed -i "s|DocumentRoot \".*\"|DocumentRoot \"/var/www/site$DOCUMENT_ROOT\"|g" /etc/apache2/conf.d/ssl.conf
+
     sed -i "s|#ServerName .*:80|ServerName $DOMAIN:80|g" /etc/apache2/httpd.conf
     sed -i "s|ServerName .*:443|ServerName $DOMAIN:443|g" /etc/apache2/conf.d/ssl.conf
-    echo "Edit apache2 config for domain - OK"
+
+    echo "Configure apache2 for domain - OK"
 
     echo "Expose php7 to host..."
     sleep 3

@@ -51,9 +51,6 @@ RUN apk add \
     apache2 \
     apache2-ssl
 
-# change website root dir
-RUN sed -i 's|/var/www/localhost/htdocs|/var/www/site/public|g' /etc/apache2/httpd.conf
-
 # enable mod rewrite
 RUN sed -i 's|#LoadModule rewrite_module modules/mod_rewrite.so|LoadModule rewrite_module modules/mod_rewrite.so|g' /etc/apache2/httpd.conf
 
@@ -64,9 +61,6 @@ RUN sed -i 's|    AllowOverride None|    AllowOverride All|g' /etc/apache2/httpd
 RUN mkdir -p /var/log/apache2
 RUN sed -i 's| logs/error.log| /var/log/apache2/error.log|g' /etc/apache2/httpd.conf
 RUN sed -i 's| logs/access.log| /var/log/apache2/access.log|g' /etc/apache2/httpd.conf
-
-# change SSL server root dir
-RUN sed -i 's|DocumentRoot "/var/www/localhost/htdocs"|DocumentRoot "/var/www/site/public"|g' /etc/apache2/conf.d/ssl.conf
 
 # change SSL log files location
 RUN sed -i 's|ErrorLog logs/ssl_error.log|ErrorLog /var/log/apache2/ssl_error.log|g' /etc/apache2/conf.d/ssl.conf
