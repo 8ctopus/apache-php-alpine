@@ -63,8 +63,8 @@ RUN sed -i 's| logs/error.log| /var/log/apache2/error.log|g' /etc/apache2/httpd.
 RUN sed -i 's| logs/access.log| /var/log/apache2/access.log|g' /etc/apache2/httpd.conf
 
 # change SSL log files location
-RUN sed -i 's|ErrorLog logs/ssl_error.log|ErrorLog /var/log/apache2/ssl_error.log|g' /etc/apache2/conf.d/ssl.conf
-RUN sed -i 's|TransferLog logs/ssl_access.log|TransferLog /var/log/apache2/ssl_access.log|g' /etc/apache2/conf.d/ssl.conf
+RUN sed -i 's|ErrorLog logs/ssl_error.log|ErrorLog /var/log/apache2/error.log|g' /etc/apache2/conf.d/ssl.conf
+RUN sed -i 's|TransferLog logs/ssl_access.log|TransferLog /var/log/apache2/access.log|g' /etc/apache2/conf.d/ssl.conf
 
 # add site test page
 ADD --chown=root:root include/index.php /var/www/site/index.php
