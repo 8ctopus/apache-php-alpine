@@ -22,36 +22,31 @@ then
     if [ -z "$(ls -A /docker/etc/apache2/ 2> /dev/null)" ];
     then
         # config doesn't exist on host
-        echo "Expose apache2 to host - copy config..."
+        echo "Expose apache2 to host - no host config"
 
-        # this is necessary if host config was used but then deleted
-        # check if config is a symbolic link
-        if [ -L /etc/apache2/ ];
+        # check if config backup exists
+        if [ -d /etc/apache2.bak/ ];
         then
-            # delete symbolic link
-            rm /etc/apache2/
-
             # restore config from backup
+            echo "Expose apache2 to host - restore config from backup"
+            rm /etc/apache2/
             cp -r /etc/apache2.bak/ /etc/apache2/
+        else
+            # create config backup
+            echo "Expose apache2 to host - backup container config"
+            cp -r /etc/apache2/ /etc/apache2.bak/
         fi
 
         # copy config to host
+        echo "Expose apache2 to host - copy config to host"
         cp -r /etc/apache2/ /docker/etc/
-
-        # check if config backup exists
-        if [ ! -d /etc/apache2.bak/ ];
-        then
-            # create config backup
-            mv /etc/apache2/ /etc/apache2.bak/
-        fi
     else
         echo "Expose apache2 to host - config exists on host"
     fi
 
-    # delete config
-    rm -rf /etc/apache2/
-
     # create symbolic link so host config is used
+    echo "Expose apache2 to host - create symlink"
+    rm -rf /etc/apache2/
     ln -s /docker/etc/apache2 /etc/apache2
 
     echo "Expose apache2 to host - OK"
@@ -89,36 +84,31 @@ then
     if [ -z "$(ls -A /docker/etc/php7/ 2> /dev/null)" ];
     then
         # config doesn't exist on host
-        echo "Expose php7 to host - copy config..."
+        echo "Expose php7 to host - no host config"
 
-        # this is necessary if host config was used but then deleted
-        # check if config is a symbolic link
-        if [ -L /etc/php7/ ];
+        # check if config backup exists
+        if [ -d /etc/php7.bak/ ];
         then
-            # delete symbolic link
-            rm /etc/php7/
-
             # restore config from backup
+            echo "Expose php7 to host - restore config from backup"
+            rm /etc/php7/
             cp -r /etc/php7.bak/ /etc/php7/
+        else
+            # create config backup
+            echo "Expose php7 to host - backup container config"
+            cp -r /etc/php7/ /etc/php7.bak/
         fi
 
         # copy config to host
+        echo "Expose php7 to host - copy config to host"
         cp -r /etc/php7/ /docker/etc/
-
-        # check if config backup exists
-        if [ ! -d /etc/php7.bak/ ];
-        then
-            # create config backup
-            mv /etc/php7/ /etc/php7.bak/
-        fi
     else
         echo "Expose php7 to host - config exists on host"
     fi
 
-    # delete config
-    rm -rf /etc/php7/
-
     # create symbolic link so host config is used
+    echo "Expose php7 to host - create symlink"
+    rm -rf /etc/php7/
     ln -s /docker/etc/php7 /etc/php7
 
     echo "Expose php7 to host - OK"
