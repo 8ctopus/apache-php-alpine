@@ -4,9 +4,9 @@ echo ""
 echo "Start container web server..."
 
 # set domain variable if not set
-if [ $DOMAIN = "" ];
+if [ -z "$DOMAIN" ];
 then
-    $DOMAIN = "localhost"
+    DOMAIN="localhost"
 fi
 
 echo "domain: $DOMAIN"
