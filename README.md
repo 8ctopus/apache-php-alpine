@@ -68,7 +68,7 @@ repository in.
 
 ## extend the docker image
 
-In this example, we will add the php-curl extension.
+In this example, we add the php-curl extension.
 
     docker-compose up --detach
     docker exec -it dev-web zsh
