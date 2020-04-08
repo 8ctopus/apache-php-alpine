@@ -22,7 +22,7 @@ The docker image size is 66 MB.
 
     docker-compose up
 
-    docker run -it -p 8000:80 8ct8pus/apache-php-alpine
+    docker run -p 8000:80 8ct8pus/apache-php-alpine:latest
 
 ## access website
 
@@ -61,3 +61,21 @@ repository in.
 ## build docker image
 
     docker build -t 8ct8pus/apache-php-alpine:latest .
+
+## get console to container
+
+    docker exec -it dev-web zsh
+
+## extend the docker image
+
+In this example, we will add the php-curl extension.
+
+    docker-compose up --detach
+    docker exec -it dev-web zsh
+    apk add php-curl
+    exit
+    docker-compose stop
+    docker commit dev-web user/apache-php-alpine-curl:latest
+
+To use the new image, run it or update the image link in the docker-compose file.
+
