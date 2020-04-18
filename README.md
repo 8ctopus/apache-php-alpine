@@ -8,7 +8,7 @@ A super light docker web server with Apache and php on top of Alpine Linux for d
 - composer
 - zsh
 
-The docker image size is 66 MB.
+The docker image size is 64 MB.
 
 ## cool features
 
@@ -78,4 +78,3 @@ In this example, we add the php-curl extension.
     docker commit dev-web user/apache-php-alpine-curl:latest
 
 To use the new image, run it or update the image link in the docker-compose file.
-
