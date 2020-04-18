@@ -172,5 +172,5 @@ restart_processes()
 # infinite loop, will only stop on termination signal
 while true; do
     # restart apache if any file in /etc/apache2 or /etc/php7 changes
-    inotifywait --quiet --event modify,create,delete --timeout 3 --recursive /etc/apache2/ /etc/php7/ && restart_apache2
+    inotifywait --quiet --event modify,create,delete --timeout 3 --recursive /etc/apache2/ /etc/php7/ && restart_processes
 done
