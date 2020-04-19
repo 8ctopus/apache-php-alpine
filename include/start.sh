@@ -3,8 +3,6 @@
 echo ""
 echo "Start container web server..."
 
-fi
-
 echo "domain: $DOMAIN"
 echo "document root: $DOCUMENT_ROOT"
 
