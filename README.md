@@ -8,7 +8,7 @@ A super light docker web server with Apache and php on top of Alpine Linux for d
 - composer
 - zsh
 
-The docker image size is 64 MB.
+The docker image size is 58 MB.
 
 ## cool features
 
@@ -22,12 +22,10 @@ The docker image size is 64 MB.
 
     docker-compose up
 
-    docker run -p 8000:80 8ct8pus/apache-php-alpine:latest
-
 ## access website
 
-    http://localhost:8000/
-    https://localhost:8001/
+    http://localhost/
+    https://localhost/
 
 ## set domain name
 
@@ -60,21 +58,21 @@ repository in.
 
 ## build docker image
 
-    docker build -t 8ct8pus/apache-php-alpine:latest .
+    docker build -t apache-php-alpine:dev .
 
 ## get console to container
 
-    docker exec -it dev-web zsh
+    docker exec -it lamp zsh
 
 ## extend the docker image
 
 In this example, we add the php-curl extension.
 
     docker-compose up --detach
-    docker exec -it dev-web zsh
+    docker exec -it lamp zsh
     apk add php-curl
     exit
     docker-compose stop
-    docker commit dev-web user/apache-php-alpine-curl:latest
+    docker commit lamp apache-php-alpine-curl:dev
 
 To use the new image, run it or update the image link in the docker-compose file.
