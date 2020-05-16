@@ -72,6 +72,13 @@ RUN sed -i 's| logs/access.log| /var/log/apache2/access.log|g' /etc/apache2/http
 RUN sed -i 's|ErrorLog logs/ssl_error.log|ErrorLog /var/log/apache2/error.log|g' /etc/apache2/conf.d/ssl.conf
 RUN sed -i 's|TransferLog logs/ssl_access.log|TransferLog /var/log/apache2/access.log|g' /etc/apache2/conf.d/ssl.conf
 
+# change Apache timeout for easier debugging
+RUN sed -i 's|^Timeout .*$|Timeout 600|g' /etc/apache2/conf.d/default.conf
+
+# change php max execution time for easier debugging
+RUN sed -i 's|^max_execution_time .*$|max_execution_time 600|g' /etc/php7/php.ini
+
+
 # add site test page
 ADD --chown=root:root include/index.php /var/www/site/index.php
 
