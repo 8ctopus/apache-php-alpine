@@ -31,7 +31,7 @@ then
         then
             # restore config from backup
             echo "Expose apache to host - restore config from backup"
-            rm /etc/apache2/
+            rm /etc/apache2/ 2> /dev/null
             cp -r /etc/apache2.bak/ /etc/apache2/
         fi
 
@@ -44,7 +44,7 @@ then
 
     # create symbolic link so host config is used
     echo "Expose apache to host - create symlink"
-    rm -rf /etc/apache2/
+    rm -rf /etc/apache2/ 2> /dev/null
     ln -s /docker/etc/apache2 /etc/apache2
 
     echo "Expose apache to host - OK"
@@ -101,7 +101,7 @@ then
         then
             # restore config from backup
             echo "Expose php to host - restore config from backup"
-            rm /etc/php7/
+            rm /etc/php7/ 2> /dev/null
             cp -r /etc/php7.bak/ /etc/php7/
         fi
 
@@ -114,22 +114,22 @@ then
 
     # create symbolic link so host config is used
     echo "Expose php to host - create symlink"
-    rm -rf /etc/php7/
+    rm -rf /etc/php7/ 2> /dev/null
     ln -s /docker/etc/php7 /etc/php7
 
     echo "Expose php to host - OK"
 fi
 
 # clean log files
-truncate -s 0 /var/log/apache2/access.log
-truncate -s 0 /var/log/apache2/error.log
-truncate -s 0 /var/log/apache2/ssl_request.log
-truncate -s 0 /var/log/apache2/xdebug.log
+truncate -s 0 /var/log/apache2/access.log 2> /dev/null
+truncate -s 0 /var/log/apache2/error.log 2> /dev/null
+truncate -s 0 /var/log/apache2/ssl_request.log 2> /dev/null
+truncate -s 0 /var/log/apache2/xdebug.log 2> /dev/null
 
 # allow xdebug to write to it
-chmod 666 /var/log/apache2/xdebug.log
+chmod 666 /var/log/apache2/xdebug.log 2> /dev/null
 
-echo "-----------------------------------------------"
+echo "-------------------------------------------------------"
 
 # start apache
 httpd -k start
@@ -142,6 +142,8 @@ else
     echo "Start container web server - FAILED"
     exit
 fi
+
+echo "-------------------------------------------------------"
 
 stop_container()
 {
