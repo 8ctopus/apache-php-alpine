@@ -76,7 +76,7 @@ RUN sed -i 's|TransferLog logs/ssl_access.log|TransferLog /var/log/apache2/acces
 RUN sed -i 's|^Timeout .*$|Timeout 600|g' /etc/apache2/conf.d/default.conf
 
 # change php max execution time for easier debugging
-RUN sed -i 's|^max_execution_time .*$|max_execution_time 600|g' /etc/php7/php.ini
+RUN sed -i 's|^max_execution_time .*$|max_execution_time = 600|g' /etc/php7/php.ini
 
 
 # add site test page
