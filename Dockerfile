@@ -34,6 +34,7 @@ RUN apk add \
     php7-openssl \
     php7-pdo \
     php7-pdo_mysql \
+    php7-posix \
     php7-session \
     php7-simplexml \
     php7-tokenizer \
