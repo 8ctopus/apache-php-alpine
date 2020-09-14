@@ -101,12 +101,13 @@ RUN sed -i 's|^max_execution_time .*$|max_execution_time = 600|g' /etc/php7/php.
 ADD --chown=root:root include/index.php /var/www/site/index.php
 
 # add entry point script
-ADD --chown=root:root include/start.sh /start.sh
+ADD --chown=root:root include/start.sh /tmp/start.sh
 
 # make entry point script executable
-RUN chmod +x /start.sh
+RUN chmod +x /tmp/start.sh
 
 # set working dir
 WORKDIR /var/www/site/
 
-ENTRYPOINT ["/start.sh"]
+# set entrypoint
+ENTRYPOINT ["/tmp/start.sh"]
