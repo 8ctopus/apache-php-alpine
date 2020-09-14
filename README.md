@@ -2,8 +2,8 @@
 
 A super light docker web server with Apache and php on top of Alpine Linux for development purposes
 
-- Apache 2.4.43 with SSL
-- php 7.3.17
+- Apache 2.4.46 with SSL
+- php 7.3.22
 - Xdebug debugging from host
 - composer
 - zsh
@@ -20,7 +20,7 @@ The docker image size is 59 MB.
 
 ## start container
 
-    docker-compose up
+docker-compose up
 
 ## access website
 
@@ -58,21 +58,27 @@ repository in.
 
 ## build docker image
 
-    docker build -t apache-php-alpine:dev .
+```bash
+docker build -t apache-php-alpine:dev .
+```
 
 ## get console to container
 
-    docker exec -it lap zsh
+```bash
+docker exec -it lap zsh
+```
 
 ## extend the docker image
 
 In this example, we add the php-curl extension.
 
-    docker-compose up --detach
-    docker exec -it lap zsh
-    apk add php-curl
-    exit
-    docker-compose stop
-    docker commit lap apache-php-alpine-curl:dev
+```bash
+docker-compose up --detach
+docker exec -it lap zsh
+apk add php-curl
+exit
+docker-compose stop
+docker commit lap apache-php-alpine-curl:dev
+```
 
 To use the new image, update the image link in the docker-compose file.
