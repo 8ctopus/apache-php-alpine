@@ -3,7 +3,7 @@
 A super light docker web server with Apache and php on top of Alpine Linux for development purposes
 
 - Apache 2.4.46 with SSL
-- php 7.3.22
+- php 7.4.11
 - Xdebug debugging from host
 - composer
 - zsh
