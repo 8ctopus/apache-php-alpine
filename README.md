@@ -3,8 +3,9 @@
 A super light docker web server with Apache and php on top of Alpine Linux for development purposes
 
 - Apache 2.4.46 with SSL
-- php 7.4.11
-- Xdebug debugging from host
+- php 7.4.12
+- Xdebug debugging
+- Xdebug profiler
 - composer
 - zsh
 
@@ -20,12 +21,30 @@ The docker image size is 59 MB.
 
 ## start container
 
+Starting the container with `docker-compose` offer all container functionalities.
+
+```bash
 docker-compose up
+CTRL-Z to detach
+
+docker-compose stop
+```
+
+Alternatively the container can also be started with `docker run`.
+
+```bash
+docker run -p 80:80 --name web 8ct8pus/apache-php-alpine:latest
+CTRL-Z to detach
+
+docker stop container
+```
 
 ## access website
 
     http://localhost/
     https://localhost/
+
+The source code is located inside the `html` directory.
 
 ## set domain name
 
@@ -42,19 +61,31 @@ Add this line to the system host file. Editing the file requires administrator p
 
 ## https
 
-To remove "Your connection is not private" nag screens, import the certificate authority file under ssl/certificate_authority.pem in your browser's certificates under Trusted Root Certification Authorities. (https://support.globalsign.com/digital-certificates/digital-certificate-installation/install-client-digital-certificate-windows-using-chrome)
+To remove "Your connection is not private" nag screens, import the certificate authority file under ssl/certificate_authority.pem in the browser's certificates under Trusted Root Certification Authorities.
 
-## Xdebug
+guide: https://support.globalsign.com/digital-certificates/digital-certificate-installation/install-client-digital-certificate-windows-using-chrome
 
-The docker image is fully configured to debug php code from the PC.
-In the Xdebug client on the computer configure as follows:
+## Xdebug debugging
 
-    host: 127.0.0.1
-    port: 9000
-    path mapping: "/var/www/site/" : "$GIT_ROOT/dev/"
+This github repository is configured to debug php code in Visual Studio Code.
+To start debugging, open the VSCode workspace then select `Run > Start debugging` then open the site in the browser.
 
-For path mapping, $GIT_ROOT is the absolute path to where you cloned this
-repository in.
+For other IDEs, set the Xdebug debugging port to 9000.
+
+## Xdebug profiling
+
+The docker image is configured to profile php code.
+To start profiling, add the `XDEBUG_PROFILE` variable to the request as a GET, POST or COOKIE.
+
+    http://localhost/?XDEBUG_PROFILE
+
+Profiles are stored in the log directory.
+
+## access container through command line
+
+```bash
+docker exec -it web zsh
+```
 
 ## build docker image
 
@@ -62,13 +93,7 @@ repository in.
 docker build -t apache-php-alpine:dev .
 ```
 
-## get console to container
-
-```bash
-docker exec -it web zsh
-```
-
-## extend the docker image
+## extend docker image
 
 In this example, we add the php-curl extension.
 
@@ -82,3 +107,7 @@ docker commit web apache-php-alpine-curl:dev
 ```
 
 To use the new image, update the image link in the docker-compose file.
+
+## notes
+
+In Windows hot reload doesn't work with WSL 2, you need to use the legacy Hyper-V.
