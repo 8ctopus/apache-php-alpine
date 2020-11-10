@@ -65,7 +65,7 @@ docker build -t apache-php-alpine:dev .
 ## get console to container
 
 ```bash
-docker exec -it lap zsh
+docker exec -it web zsh
 ```
 
 ## extend the docker image
@@ -74,11 +74,11 @@ In this example, we add the php-curl extension.
 
 ```bash
 docker-compose up --detach
-docker exec -it lap zsh
+docker exec -it web zsh
 apk add php-curl
 exit
 docker-compose stop
-docker commit lap apache-php-alpine-curl:dev
+docker commit web apache-php-alpine-curl:dev
 ```
 
 To use the new image, update the image link in the docker-compose file.
