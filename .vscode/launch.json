@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "listen xdebug 9000",
+            "name": "listen xdebug 9001",
             "type": "php",
             "request": "launch",
-            "port": 9000,
+            "port": 9001,
             "stopOnEntry": true,
             "pathMappings": {
                 "/var/www/html/": "${workspaceRoot}/html/",
