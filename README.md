@@ -1,4 +1,4 @@
-## project description
+# docker apache php alpine
 
 A super light docker web server with Apache and php on top of Alpine Linux for development purposes
 
@@ -139,3 +139,13 @@ docker-compose stop
 docker commit web apache-php-alpine-curl:dev
 ```
 
+To use the new image, update the image link in the docker-compose file.
+
+## update docker image
+
+When you update the docker image version, it's important to know that the existing configuration in `etc` may cause problems.
+To solve the problems, backup your config then delete all config files:
+
+```sh
+rm -rf etc/ log/ ssl/
+```
