@@ -3,7 +3,7 @@ version: '3.7'
 services:
   web:
     # php 8.0.14
-    image: 8ct8pus/apache-php-alpine:1.0.5
+    image: 8ct8pus/apache-php-alpine:1.0.6
     # php 7.4.12
     #image: 8ct8pus/apache-php-alpine:1.0.4
     # development image
