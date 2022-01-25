@@ -2,12 +2,11 @@
 
 A super light docker web server with Apache and php on top of Alpine Linux for development purposes
 
-- Apache 2.4.46 with SSL
-- php 7.4.12
-- Xdebug debugging
-- Xdebug profiler
-- composer
-- zsh
+- Apache 2.4.52 with SSL
+- php 8.0.14
+- Xdebug 3.1.2 - debugger and profiler
+- composer 2.1.12
+- zsh 5.8
 
 The docker image size is 59 MB.
 

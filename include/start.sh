@@ -123,39 +123,39 @@ then
     sleep 3
 
     # check if config backup exists
-    if [ ! -d /etc/php7.bak/ ];
+    if [ ! -d /etc/php8.bak/ ];
     then
         # create config backup
         echo "Expose php to host - backup container config"
-        cp -r /etc/php7/ /etc/php7.bak/
+        cp -r /etc/php8/ /etc/php8.bak/
     fi
 
     # check if php config exists on host
-    if [ -z "$(ls -A /docker/etc/php7/ 2> /dev/null)" ];
+    if [ -z "$(ls -A /docker/etc/php8/ 2> /dev/null)" ];
     then
         # config doesn't exist on host
         echo "Expose php to host - no host config"
 
         # check if config backup exists
-        if [ -d /etc/php7.bak/ ];
+        if [ -d /etc/php8.bak/ ];
         then
             # restore config from backup
             echo "Expose php to host - restore config from backup"
-            rm /etc/php7/ 2> /dev/null
-            cp -r /etc/php7.bak/ /etc/php7/
+            rm /etc/php8/ 2> /dev/null
+            cp -r /etc/php8.bak/ /etc/php8/
         fi
 
         # copy config to host
         echo "Expose php to host - copy config to host"
-        cp -r /etc/php7/ /docker/etc/
+        cp -r /etc/php8/ /docker/etc/
     else
         echo "Expose php to host - config exists on host"
     fi
 
     # create symbolic link so host config is used
     echo "Expose php to host - create symlink"
-    rm -rf /etc/php7/ 2> /dev/null
-    ln -s /docker/etc/php7 /etc/php7
+    rm -rf /etc/php8/ 2> /dev/null
+    ln -s /docker/etc/php8 /etc/php8
 
     echo "Expose php to host - OK"
 fi
@@ -222,6 +222,6 @@ restart_processes()
 
 # infinite loop, will only stop on termination signal
 while true; do
-    # restart apache if any file in /etc/apache2 or /etc/php7 changes
-    inotifywait --quiet --event modify,create,delete --timeout 3 --recursive /etc/apache2/ /etc/php7/ && restart_processes
+    # restart apache if any file in /etc/apache2 or /etc/php8 changes
+    inotifywait --quiet --event modify,create,delete --timeout 3 --recursive /etc/apache2/ /etc/php8/ && restart_processes
 done

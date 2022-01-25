@@ -1,4 +1,4 @@
-FROM alpine:20200917
+FROM alpine:3.15.0
 
 # expose ports
 EXPOSE 80/tcp
@@ -27,34 +27,34 @@ ADD --chown=root:root include/zshrc /etc/zsh/zshrc
 
 # install php
 RUN apk add \
-    php7-apache2 \
-    php7-bcmath \
-    php7-common \
-    php7-ctype \
-    php7-curl \
-    php7-dom \
-    php7-fileinfo \
-    php7-json \
-    php7-mbstring \
-    php7-mysqli \
-    php7-openssl \
-    php7-pdo \
-    php7-pdo_mysql \
-    php7-pdo_sqlite \
-    php7-posix \
-    php7-session \
-    php7-simplexml \
-    php7-tokenizer \
-    php7-xml \
-    php7-xmlwriter \
-    php7-zip
+    php8-apache2 \
+    php8-bcmath \
+    php8-common \
+    php8-ctype \
+    php8-curl \
+    php8-dom \
+    php8-fileinfo \
+    php8-json \
+    php8-mbstring \
+    php8-mysqli \
+    php8-openssl \
+    php8-pdo \
+    php8-pdo_mysql \
+    php8-pdo_sqlite \
+    php8-posix \
+    php8-session \
+    php8-simplexml \
+    php8-tokenizer \
+    php8-xml \
+    php8-xmlwriter \
+    php8-zip
 
 # install xdebug
 RUN apk add \
-    php7-pecl-xdebug
+    php8-pecl-xdebug
 
 # configure xdebug
-ADD --chown=root:root include/xdebug.ini /etc/php7/conf.d/xdebug.ini
+ADD --chown=root:root include/xdebug.ini /etc/php8/conf.d/xdebug.ini
 
 # install composer
 RUN apk add \
@@ -95,7 +95,7 @@ RUN sed -i 's|DirectoryIndex index.html|DirectoryIndex index.php index.html|g' /
 RUN sed -i 's|^Timeout .*$|Timeout 600|g' /etc/apache2/conf.d/default.conf
 
 # change php max execution time for easier debugging
-RUN sed -i 's|^max_execution_time .*$|max_execution_time = 600|g' /etc/php7/php.ini
+RUN sed -i 's|^max_execution_time .*$|max_execution_time = 600|g' /etc/php8/php.ini
 
 
 # add test page to site
