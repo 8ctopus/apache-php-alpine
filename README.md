@@ -16,23 +16,26 @@ The docker image size is 59 MB.
 - Apache and php configuration files are exposed on the host.
 - Just works with any domain name.
 - https is configured out of the box.
-- All changes to the config files are automatically applied (hot reload).
+- All changes to config files are automatically applied (hot reload).
 - Xdebug is configured for remote debugging (no headaches).
 
 ## start container
 
-Starting the container with `docker-compose` offer all container functionalities.
+Starting the container with `docker-compose` offers all functionalities.
 
-```bash
+```sh
+# start container
 docker-compose up
+
 CTRL-Z to detach
 
+# stop container
 docker-compose stop
 ```
 
 Alternatively the container can also be started with `docker run`.
 
-```bash
+```sh
 docker run -p 80:80 --name web 8ct8pus/apache-php-alpine:latest
 CTRL-Z to detach
 
@@ -46,7 +49,7 @@ docker stop container
 
 The source code is located inside the `html` directory.
 
-## set domain name
+## set website domain name
 
 To set the domain name to www.test.com, edit the environment variable in the docker-compose file
 
@@ -59,45 +62,65 @@ Add this line to the system host file. Editing the file requires administrator p
 
     127.0.0.1 test.net www.test.net
 
-## https
+## add https
 
 To remove "Your connection is not private" nag screens, import the certificate authority file under ssl/certificate_authority.pem in the browser's certificates under Trusted Root Certification Authorities.
 
 guide: https://support.globalsign.com/digital-certificates/digital-certificate-installation/install-client-digital-certificate-windows-using-chrome
 
-## Xdebug debugging
+## Xdebug debugger
 
-This github repository is configured to debug php code in Visual Studio Code.
+This repository is configured to debug php code in Visual Studio Code.
 To start debugging, open the VSCode workspace then select `Run > Start debugging` then open the site in the browser.
 
 For other IDEs, set the Xdebug debugging port to 9001.
 
-## Xdebug profiling
+To troubleshoot debugger issues, check the `log\xdebug.log` file.
 
-The docker image is configured to profile php code.
+If `host.docker.internal` does not resolve within the container, update the xdebug client host within `etc\php\conf.d\xdebug.ini` to the docker host ip address.
+
+```
+xdebug.client_host          = 192.168.65.2
+```
+
+## Xdebug profiler
+
 To start profiling, add the `XDEBUG_PROFILE` variable to the request as a GET, POST or COOKIE.
 
     http://localhost/?XDEBUG_PROFILE
 
-Profiles are stored in the log directory.
+Profiles are stored in the `log` directory and can be analyzed with tools such as [webgrind](https://github.com/jokkedk/webgrind).
 
 ## access container through command line
 
-```bash
+```sh
 docker exec -it web zsh
 ```
 
-## build docker image
+## use development image
 
-```bash
-docker build -t apache-php-alpine:dev .
+- build docker development image
+
+`docker build -t apache-php-alpine:dev .`
+
+- `rm -rf etc log ssl/localhost*`
+- in docker-compose.yml
+
+```yaml
+services:
+  web:
+    # development image
+    image: apache-php-alpine:dev
 ```
+
+- `docker-compose up`
+- open browser at `localhost`
 
 ## extend docker image
 
 In this example, we add the php-curl extension.
 
-```bash
+```sh
 docker-compose up --detach
 docker exec -it web zsh
 apk add php-curl
@@ -106,7 +129,6 @@ docker-compose stop
 docker commit web apache-php-alpine-curl:dev
 ```
 
-To use the new image, update the image link in the docker-compose file.
 
 ## notes
 
