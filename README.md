@@ -20,6 +20,8 @@ The docker image size is 76.5 MB.
 - All changes to config files are automatically applied (hot reload).
 - Xdebug is configured for remote debugging (no headaches).
 
+_Note_: On Windows [hot reload doesn't work with WSL 2](https://github.com/microsoft/WSL/issues/4739), you need to use the legacy Hyper-V.
+
 ## use container
 
 Starting the container with `docker-compose` offers all functionalities.
@@ -135,7 +137,3 @@ docker-compose stop
 docker commit web apache-php-alpine-curl:dev
 ```
 
-
-## notes
-
-In Windows hot reload doesn't work with WSL 2, you need to use the legacy Hyper-V.
