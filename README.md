@@ -80,7 +80,7 @@ guide: https://support.globalsign.com/digital-certificates/digital-certificate-i
 This repository is configured to debug php code in Visual Studio Code.
 To start debugging, open the VSCode workspace then select `Run > Start debugging` then open the site in the browser.
 
-For other IDEs, set the Xdebug debugging port to 9001.
+For other IDEs, set the Xdebug debugging port to `9001`.
 
 To troubleshoot debugger issues, check the `log\xdebug.log` file.
 
