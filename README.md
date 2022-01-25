@@ -7,35 +7,41 @@ A super light docker web server with Apache and php on top of Alpine Linux for d
 - Xdebug 3.1.2 - debugger and profiler
 - composer 2.1.12
 - zsh 5.8
+- Alpine 3.15.0
 
-The docker image size is 59 MB.
+The docker image size is 76.5 MB.
 
 ## cool features
 
+- php 8 or 7
 - Apache and php configuration files are exposed on the host.
 - Just works with any domain name.
 - https is configured out of the box.
 - All changes to config files are automatically applied (hot reload).
 - Xdebug is configured for remote debugging (no headaches).
 
-## start container
+## use container
 
 Starting the container with `docker-compose` offers all functionalities.
 
 ```sh
-# start container
-docker-compose up
+# start container on linux and mac in shell
+docker-compose up &
 
-CTRL-Z to detach
+# start container on Windows in cmd
+start /B docker-compose up
 
 # stop container
 docker-compose stop
+
+# delete container
+docker-compose down
 ```
 
 Alternatively the container can also be started with `docker run`.
 
 ```sh
-docker run -p 80:80 --name web 8ct8pus/apache-php-alpine:latest
+docker run -p 80:80 -p 443:443 --name web 8ct8pus/apache-php-alpine:latest
 CTRL-Z to detach
 
 docker stop container
@@ -124,6 +130,7 @@ docker-compose up --detach
 docker exec -it web zsh
 apk add php-curl
 exit
+
 docker-compose stop
 docker commit web apache-php-alpine-curl:dev
 ```
