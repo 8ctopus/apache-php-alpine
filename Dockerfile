@@ -100,6 +100,9 @@ RUN sed -i 's|^Timeout .*$|Timeout 600|g' /etc/apache2/conf.d/default.conf
 # update php max execution time for easier debugging
 RUN sed -i 's|^max_execution_time .*$|max_execution_time = 600|g' /etc/php8/php.ini
 
+# php log everything
+RUN sed -i 's|^error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT$|error_reporting = E_ALL|g' /etc/php8/php.ini
+
 # add test pages to site
 ADD --chown=root:root html/public/ /var/www/html$DOCUMENT_ROOT/
 
