@@ -91,15 +91,14 @@ RUN sed -i 's|Options Indexes FollowSymLinks|Options All|g' /etc/apache2/httpd.c
 # update directory index to add php files
 RUN sed -i 's|DirectoryIndex index.html|DirectoryIndex index.php index.html|g' /etc/apache2/httpd.conf
 
-# change apache timeout for easier debugging
+# update apache timeout for easier debugging
 RUN sed -i 's|^Timeout .*$|Timeout 600|g' /etc/apache2/conf.d/default.conf
 
-# change php max execution time for easier debugging
+# update php max execution time for easier debugging
 RUN sed -i 's|^max_execution_time .*$|max_execution_time = 600|g' /etc/php8/php.ini
 
-
-# add test page to site
-ADD --chown=root:root include/index.php /var/www/html$DOCUMENT_ROOT/index.php
+# add test pages to site
+ADD --chown=root:root html/public/ /var/www/html$DOCUMENT_ROOT/
 
 # add entry point script
 ADD --chown=root:root include/start.sh /tmp/start.sh
