@@ -1,7 +1,6 @@
-/etc/
-/log/
-/ssl/
+# docker
+/docker/
 
+# other
 /html/vendor/
-
 /*.sublime-workspace

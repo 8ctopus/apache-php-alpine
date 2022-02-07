@@ -29,10 +29,10 @@ _Note_: On Windows [hot reload doesn't work with WSL 2](https://github.com/micro
 Starting the container with `docker-compose` offers all functionalities.
 
 ```sh
-# start container on linux and mac in shell
+# start container in detached mode on linux and mac in shell
 docker-compose up &
 
-# start container on Windows in cmd
+# start container in detached mode on Windows in cmd
 start /B docker-compose up
 
 # stop container
@@ -84,9 +84,9 @@ The default config is to stop on entry which stops at the first line in the file
 
 For other IDEs, set the Xdebug debugging port to `9001`.
 
-To troubleshoot debugger issues, check the `log\xdebug.log` file.
+To troubleshoot debugger issues, check the `log/xdebug.log` file.
 
-If `host.docker.internal` does not resolve within the container, update the xdebug client host within `etc\php\conf.d\xdebug.ini` to the docker host ip address.
+If `host.docker.internal` does not resolve within the container, update the xdebug client host within `docker/etc/php/conf.d/xdebug.ini` to the docker host ip address.
 
 ```ini
 xdebug.client_host = 192.168.65.2
@@ -112,7 +112,7 @@ docker exec -it web zsh
 
 `docker build -t apache-php-alpine:dev .`
 
-- `rm -rf etc log ssl/localhost*`
+- `rm -rf docker/`
 - in docker-compose.yml
 
 ```yaml
@@ -143,9 +143,9 @@ To use the new image, update the image link in the docker-compose file.
 
 ## update docker image
 
-When you update the docker image version, it's important to know that the existing configuration in `etc` may cause problems.
+When you update the docker image version, it's important to know that the existing configuration in `docker/etc` may cause problems.
 To solve the problems, backup your config then delete all config files:
 
 ```sh
-rm -rf etc/ log/ ssl/
+rm -rf docker/
 ```
