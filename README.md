@@ -110,7 +110,9 @@ docker exec -it web zsh
 
 - build docker development image
 
-`docker build -t apache-php-alpine:dev .`
+```sh
+docker build -t apache-php-alpine:dev .
+```
 
 - `rm -rf docker/`
 - in docker-compose.yml
