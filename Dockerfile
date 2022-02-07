@@ -34,9 +34,11 @@ RUN apk add \
     php8-curl \
     php8-dom \
     php8-fileinfo \
+    php8-gettext \
     php8-json \
     php8-mbstring \
     php8-mysqli \
+    php8-opcache \
     php8-openssl \
     php8-pdo \
     php8-pdo_mysql \
@@ -44,6 +46,7 @@ RUN apk add \
     php8-posix \
     php8-session \
     php8-simplexml \
+    php8-sodium \
     php8-tokenizer \
     php8-xml \
     php8-xmlwriter \
