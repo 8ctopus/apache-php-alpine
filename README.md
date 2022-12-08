@@ -1,5 +1,7 @@
 # docker apache php alpine
 
+_Note_: I've archived this repository, please use [https://github.com/8ctopus/apache-php-fpm-alpine](https://github.com/8ctopus/apache-php-fpm-alpine) instead.
+
 A super light docker web server with Apache and php on top of Alpine Linux for development purposes
 
 - Apache 2.4.52 with SSL
